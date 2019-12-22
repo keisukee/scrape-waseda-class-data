@@ -5,6 +5,10 @@ def url(page)
   "https://www.wsl.waseda.jp/syllabus/JAA101.php"
 end
 
+def syllabus_url(pkey)
+  "https://www.wsl.waseda.jp/syllabus/JAA104.php?pKey=#{pkey}&pLng=jp"
+end
+
 # 最初のページで全学科を選択して授業一覧を表示するところまで
 driver.get url(1)
 driver.find_element(:id, 'p_bunya1').click
@@ -36,7 +40,6 @@ sleep 3
   items.delete(items[0])
   items.delete(items[items.length-1])
   items.delete(items[items.length-1])
-
   items.each do |item|
     infos = item.find_elements(tag_name: "td")
     infos.each do |info|
@@ -44,6 +47,16 @@ sleep 3
         puts "仮テキスト"
       else
         puts info.text
+      end
+
+      # シラバスのURLを取得
+      begin
+        link = info.find_element(tag_name: "a")
+        code = link.attribute(:onclick)
+        array = code.split("'")
+        pkey = array[3].to_s # もともとは "post_submit('JAA104DtlSubCon', '1200007B110220201200007B1112')" という形だったものを、splitで分割し、そのarray[3]がpkeyとなる
+        puts syllabus_url(pkey)
+      rescue => e
       end
     end
     puts "-------"
@@ -80,6 +93,14 @@ end
         puts "仮テキスト"
       else
         puts info.text
+      end
+      begin
+        link = info.find_element(tag_name: "a")
+        code = link.attribute(:onclick)
+        array = code.split("'")
+        pkey = array[3].to_s
+        puts syllabus_url(pkey)
+      rescue => e
       end
     end
     puts "-------"
@@ -119,6 +140,15 @@ end
         puts "仮テキスト"
       else
         puts info.text
+      end
+
+      begin
+        link = info.find_element(tag_name: "a")
+        code = link.attribute(:onclick)
+        array = code.split("'")
+        pkey = array[3].to_s
+        puts syllabus_url(pkey)
+      rescue => e
       end
     end
     puts "-------"
