@@ -32,7 +32,7 @@ sleep 1
   class_items = driver.find_elements(:class, 'list')
   class_items.each do |class_item|
     class_name = class_item.find_element(:tag_name, 'dt')
-    if class_name.find_element(:tag_name, 'a').text == ""
+
     puts class_name.find_element(:tag_name, 'a').text
 
     class_info = class_item.find_element(:class, 'college')
@@ -61,50 +61,5 @@ sleep 1
   end
 end
 
-# 3.times do |i|
-
-#   items = driver.find_elements(tag_name: "tr")
-#   pagenation = items[items.length - 1]
-#   pagenation_buttons = pagenation.find_elements(tag_name: "td")
-
-#   # 最初の2つと最後の2つは授業の情報ではないのでいらない
-#   items.delete(items[0])
-#   items.delete(items[0])
-#   items.delete(items[items.length-1])
-#   items.delete(items[items.length-1])
-
-#   items.each do |item|
-#     infos = item.find_elements(tag_name: "td")
-#     infos.each do |info|
-#       if info.text == " " # データが入っていない場合の比較
-#         puts "仮テキスト"
-#       else
-#         puts info.text
-#       end
-
-#       begin
-#         link = info.find_element(tag_name: "a")
-#         code = link.attribute(:onclick)
-#         array = code.split("'")
-#         pkey = array[3].to_s
-#         puts syllabus_url(pkey)
-#       rescue => e
-#       end
-#     end
-#     puts "-------"
-#   end
-#   sleep 2
-#   pagenation_buttons[8 + i].click # 7番目がつねに、現在の表示ページの次になっている
-# end
-
-
 driver.quit
 
-# charset = nil
-# 100.times do |i|
-#   html = open(url(i)).read
-#   doc = Nokogiri::HTML.parse(html, nil, charset)
-#   doc.css('ul.list').each do |node|
-#     puts node.css('dt.lecture/a').inner_text
-#   end
-# end
