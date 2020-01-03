@@ -25,9 +25,9 @@ login_btn[0].click # ログイン
 
 sleep 1
 
-
-7500.times do |i|
-  driver.get url(i)
+# 7500 - 738 = 6762
+6762.times do |i|
+  driver.get url(i + 738)
 
   class_items = driver.find_elements(:class, 'list')
   class_items.each do |class_item|
