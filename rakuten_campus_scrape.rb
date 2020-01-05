@@ -2,6 +2,9 @@ require 'open-uri'
 require 'nokogiri'
 require "selenium-webdriver"
 require "dotenv"
+require 'logger'
+
+log = Logger.new('./tmp/log')
 
 Dotenv.load
 
@@ -27,6 +30,7 @@ sleep 1
 
 # 7500 - 1191 = 6309
 6309.times do |i|
+  logger.info("url: #{url(i + 1191)}")
   driver.get url(i + 1191)
 
   class_items = driver.find_elements(:class, 'list')
